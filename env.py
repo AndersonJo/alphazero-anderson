@@ -1,3 +1,3 @@
 class Game(object):
-    def init(self):
-        raise NotImplementedError()
+    def step(self, action):
+        raise NotImplementedError

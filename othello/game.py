@@ -1,14 +1,13 @@
 from itertools import product
-from time import sleep
 from typing import List, Tuple, Union
 
-import pygame
 import numpy as np
+import pygame
 
 from env import Game
 
 
-class Reversi(Game):
+class Othello(Game):
     EMPTY = 0
     HINT = 1
     WHITE = 2
@@ -125,9 +124,12 @@ class Reversi(Game):
                 black_score += 1
         return white_score, black_score
 
-    def step(self, x, y):
-        # Place the tile on the board at xstart, ystart, and flip tiles
-        # Returns False if this is an invalid move, True if it is valid.
+    def step(self, action: Tuple[int, int]):
+        """
+        :param action: a tuple of x and y coordinate
+        :return: game status
+        """
+        x, y = action
 
         flip_positions = self.is_valid_position(x, y, self.turn)
         if flip_positions is None:
@@ -159,7 +161,7 @@ class Reversi(Game):
         self.board[self.board == self.HINT] = self.EMPTY
 
 
-class PyGameReversi(Reversi):
+class PyGameOthello(Othello):
     GAME_WIDTH = 500
     GAME_HEIGHT = 500
     SPACE_PIXEL = 50
@@ -172,7 +174,7 @@ class PyGameReversi(Reversi):
     FPS = 10
 
     def __init__(self, board_width=8, board_height=8, show_hint=True):
-        super(PyGameReversi, self).__init__(board_width, board_height)
+        super(PyGameOthello, self).__init__(board_width, board_height)
 
         self.show_hint = show_hint
         self.X_MARGIN = int((self.GAME_WIDTH - (self.board_width * self.SPACE_PIXEL)) / 2)
@@ -332,7 +334,7 @@ class PyGameReversi(Reversi):
 
 
 def dev():
-    reversi = PyGameReversi()
+    reversi = PyGameOthello()
     reversi.play(random_play=True)
 
 
