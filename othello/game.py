@@ -313,7 +313,7 @@ class PyGameOthello(Othello):
                             if space_xy is not None and not self.is_valid_position(space_xy[0], space_xy[1], self.turn):
                                 space_xy = None
 
-            status = self.step(space_xy[0], space_xy[1])
+            status = self.step((space_xy[0], space_xy[1]))
 
             # Render the game board
             self.render()
